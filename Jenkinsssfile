@@ -43,8 +43,8 @@ sshagent(['58b8a866-134f-4f23-9dc9-42ee2afa4371']) {
 //codesnippet for sending slacknotificatios.
 def slackNotifications(String buildStatus = 'STARTED') {
   // build status of null means successful
- // buildStatus =  buildStatus ?: 'SUCCESS'
- buildStatus = buildStatus ?: "SUCCESS":"FAILURE"
+  buildStatus =  buildStatus ?: 'SUCCESS'
+// buildStatus = buildStatus ?: "SUCCESS":"FAILURE"
 
   // Default values
   def colorName = 'RED'

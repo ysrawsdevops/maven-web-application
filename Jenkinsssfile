@@ -15,7 +15,7 @@ stage('checkoutcode'){
 stage('build'){    
     sh "${mavenHome}/bin/mvn package"
     }
-  /*
+  
 stage('Executesonarreport'){
     sh "${mavenHome}/bin/mvn clean sonar:sonar"
 }
@@ -27,7 +27,7 @@ sshagent(['58b8a866-134f-4f23-9dc9-42ee2afa4371']) {
   sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.40.37:/opt/apache-tomcat-9.0.67/webapps/"
 }
 }
-  */
+  
   } //try closing
   
   catch(e){
@@ -44,7 +44,7 @@ sshagent(['58b8a866-134f-4f23-9dc9-42ee2afa4371']) {
 def slackNotifications(String buildStatus = 'STARTED') {
   // build status of null means successful
   buildStatus =  buildStatus ?: 'SUCCESS'
- buildStatus = buildStatus ?: "SUCCESS":"FAILURE"
+// buildStatus = buildStatus ?: "SUCCESS":"FAILURE"
 
   // Default values
   def colorName = 'RED'

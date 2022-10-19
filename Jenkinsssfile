@@ -28,23 +28,19 @@ sshagent(['58b8a866-134f-4f23-9dc9-42ee2afa4371']) {
 }
 }
   
-  } //try closing
-  
-  catch(e){
-  currentBuild.result="FAILURE"
-  throw e
-  } //catch closing
-  
-  finally{
-  slackNotification(currentBuild.result)
-  } 
-} //nodeclosing
+  } catch (e) {
+    // If there was an exception thrown, the build failed
+    currentBuild.result = "FAILED"
+    throw e
+  } finally {
+    // Success or failure, always send notifications
+    slackNotifications(currentBuild.result)
+  }
+}
 
-//codesnippet for sending slackNotificatios.
 def slackNotifications(String buildStatus = 'STARTED') {
   // build status of null means successful
   buildStatus =  buildStatus ?: 'SUCCESS'
-// buildStatus = buildStatus ?: "SUCCESS":"FAILURE"
 
   // Default values
   def colorName = 'RED'
@@ -56,16 +52,15 @@ def slackNotifications(String buildStatus = 'STARTED') {
   if (buildStatus == 'STARTED') {
     color = 'YELLOW'
     colorCode = '#FFFF00'
-  } 
-  else if (buildStatus == 'SUCCESS') {
+  } else if (buildStatus == 'SUCCESS') {
     color = 'GREEN'
     colorCode = '#00FF00'
-    } 
-    else {
-    colorName = 'RED'
+  } else {
+    color = 'RED'
     colorCode = '#FF0000'
-    }
-    //Send Notifications
-    slackSend (color: colorCode, message: summary)
-  
-    }
+  }
+
+  // Send notifications
+  slackSend (color: colorCode, message: summary)
+}
+

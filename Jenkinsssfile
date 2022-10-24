@@ -1,4 +1,4 @@
-@Library('sharedlibraryysr') _
+@Library('sharedlibsmss') _
 
 node{
 

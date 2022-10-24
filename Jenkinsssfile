@@ -1,8 +1,10 @@
+@Library('sharedlibraryysr') _
+
 node{
 
  try{
  
- slackNotifications('STARTED')
+ sendSlackNotifications('STARTED')
  
     echo "the jobname is: ${env.JOB_NAME}"
     echo "the node name is: ${env.NODE_NAME}"
@@ -37,7 +39,7 @@ sshagent(['58b8a866-134f-4f23-9dc9-42ee2afa4371']) {
     throw e
   } finally {
     // Success or failure, always send notifications
-    slackNotifications(currentBuild.result)
+    sendSlackNotifications(currentBuild.result)
   }
 }
 /*
